@@ -1,0 +1,128 @@
+/* Tailwind base, components, and utilities if using Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Additional custom styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.bg-primary {
+  background-color: #EF7A05; /* Orange background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+.background-svg {
+  position: absolute;
+  top: 0;
+  left: 0; /* Ensure blob is on the left */
+  width: 80%;
+  height: 100%;
+  background: url('/public/blob1.svg') no-repeat center center;
+  background-size: cover;
+}
+
+.logo {
+  width: 312px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.login-container {
+  background-color: #ffffff; /* White background for the login form */
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 10;
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-form input,
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.login-form button {
+  background-color: #EF7A05; 
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+  background-color: #EF7A05; 
+}
+
+.forgot-password {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.forgot-password a {
+  color: #f97316; 
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+.success-message {
+  color: #2c7a36;
+  background-color: #f0fff4;
+  border: 1px solid #2c7a36;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+}
+.button-approve {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 8px; /* Adjust spacing between buttons */
+  cursor: pointer;
+}
+
+.button-approve:hover {
+  background-color: #45a049;
+}
+
+.button-reject {
+  background-color: #f44336;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 8px; /* Adjust spacing between buttons */
+  cursor: pointer;
+}
+
+.button-reject:hover {
+  background-color: #e53935;
+}
+
+.button-delete {
+  background-color: #d9534f;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-delete:hover {
+  background-color: #d43f3a;
+}
+

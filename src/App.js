@@ -244,7 +244,7 @@ const App = () => {
           element={<MyAuth authorizationRequests={authorizationRequests} />}
         />
 
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/register" replace />} />
       </Routes>
     </Router>
   );

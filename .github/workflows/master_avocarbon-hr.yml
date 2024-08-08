@@ -5,6 +5,7 @@ on:
     branches:
       - master
   workflow_dispatch:
+  
 permissions:
    contents: write 
 
@@ -29,8 +30,8 @@ jobs:
       - name: Build project
         run: npm run build
         
-      - name: Zip artifact for deployment
-        run: zip -r release.zip ./*
+      - name: Zip build artifact for deployment
+        run: zip -r release.zip ./build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -61,4 +62,4 @@ jobs:
           app-name: 'AVOCarbon-HR'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C76E0EFA03F44281852ACCC532AC132A }}
-          package: .
+          package: ./build

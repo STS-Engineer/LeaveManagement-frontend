@@ -29,7 +29,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "http://hr-back-end.azurewebsites.net/api/auth/login",
         {
           email: username,
           password: password,

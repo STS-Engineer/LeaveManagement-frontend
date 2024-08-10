@@ -17,7 +17,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://hr-avocarbon-backend.azurewebsites.net/api/auth/register",
+        "https://hr-back-end.azurewebsites.net/auth/register",
         {
           firstname,
           lastname,

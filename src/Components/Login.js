@@ -29,7 +29,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://hr-back-end.azurewebsites.net/auth/login",
+        "https://hr-back-end.azurewebsites.net/auth/login",
         {
           email: username,
           password: password,

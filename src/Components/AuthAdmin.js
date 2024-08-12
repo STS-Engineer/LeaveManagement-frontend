@@ -52,7 +52,7 @@ const AuthAdmin = () => {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://hr-back-end.azurewebsites.net/authorization-requests/${id}`)
+      .delete(`https://hr-back-end.azurewebsites.net/authorization-requests/${id}`)
       .then(() => {
         setAuthRequests(
           authRequests.filter((request) => request.requestid !== id)

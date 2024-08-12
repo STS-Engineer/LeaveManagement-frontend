@@ -125,7 +125,7 @@ const DashboardAdmin = () => {
                         </span>{" "}
                         {request.justificationfile && (
                           <a
-                            href={`http://hr-back-end.azurewebsites.net/uploads/${request.justificationfile}`}
+                            href={`https://hr-back-end.azurewebsites.net/uploads/${request.justificationfile}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-500 underline"

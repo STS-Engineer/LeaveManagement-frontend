@@ -85,7 +85,7 @@ const MyDoc = ({ user }) => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {doc.file_path ? (
                       <a
-                        href={`http://localhost:5000/api/document-requests/download/${doc.file_path}`}
+                        href={`https://hr-back-end.azurewebsites.net/document-requests/download/${doc.file_path}`}
                         download
                         className="text-blue-500 hover:text-blue-700"
                       >

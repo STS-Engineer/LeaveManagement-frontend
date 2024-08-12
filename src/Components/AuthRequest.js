@@ -29,7 +29,7 @@ const AuthRequest = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/authorization-requests",
+        "http://hr-back-end.azurewebsites.net/authorization-requests",
         formData
       );
 

@@ -59,7 +59,7 @@ const MissionRequest = () => {
 
       // Make POST request to backend API to create mission request
       const response = await axios.post(
-        "http://localhost:5000/api/mission-requests",
+        "http://hr-back-end.azurewebsites.net/mission-requests",
         newMissionRequest
       );
 

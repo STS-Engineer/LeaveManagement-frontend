@@ -11,7 +11,7 @@ const DashboardAdmin = () => {
     // Fetch leave requests periodically
     const fetchRequests = () => {
       fetch(
-        `http://hr-back-end.azurewebsites.net/leave-requests?page=${currentPage}&limit=${requestsPerPage}`
+        `https://hr-back-end.azurewebsites.net/leave-requests?page=${currentPage}&limit=${requestsPerPage}`
       )
         .then((response) => response.json())
         .then((data) => setLeaveRequests(data))

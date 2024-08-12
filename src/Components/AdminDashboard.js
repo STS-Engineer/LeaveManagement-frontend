@@ -34,7 +34,7 @@ const DashboardAdmin = () => {
     setLeaveRequests(updatedRequests);
 
     // Make the server request
-    fetch(`http://hr-back-end.azurewebsites.net/leave-requests/${id}`, {
+    fetch(`https://hr-back-end.azurewebsites.net/leave-requests/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +66,7 @@ const DashboardAdmin = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://hr-back-end.azurewebsites.net/leave-requests/${id}`, {
+    fetch(`https://hr-back-end.azurewebsites.net/leave-requests/${id}`, {
       method: "DELETE",
     })
       .then(() => {

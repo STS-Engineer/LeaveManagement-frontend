@@ -11,7 +11,7 @@ const AuthAdmin = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-          `http://hr-back-end.azurewebsites.net/authorization-requests?page=${currentPage}&limit=${requestsPerPage}`
+          `https://hr-back-end.azurewebsites.net/authorization-requests?page=${currentPage}&limit=${requestsPerPage}`
         );
         setAuthRequests(response.data); // Set auth requests data
       } catch (error) {
@@ -34,7 +34,7 @@ const AuthAdmin = () => {
 
     // Make the server request
     axios
-      .put(`http://hr-back-end.azurewebsites.net/authorization-requests/${id}`, {
+      .put(`https://hr-back-end.azurewebsites.net/authorization-requests/${id}`, {
         status: newStatus,
       })
       .then((response) => {

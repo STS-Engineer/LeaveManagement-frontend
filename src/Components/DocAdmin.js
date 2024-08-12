@@ -13,7 +13,7 @@ const DocumentAdmin = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-          "http://hr-back-end.azurewebsites.net/document-requests"
+          "https://hr-back-end.azurewebsites.net/document-requests"
         );
         setRequests(response.data);
       } catch (error) {
@@ -40,7 +40,7 @@ const DocumentAdmin = () => {
       setUploading(true);
       setUploadingRequestId(requestId);
       await axios.post(
-        `http://hr-back-end.azurewebsites.net/document-requests/upload/${requestId}`,
+        `https://hr-back-end.azurewebsites.net/document-requests/upload/${requestId}`,
         formData,
         {
           headers: {

@@ -36,7 +36,7 @@ const DocumentRequest = () => {
 
     try {
       await axios.post(
-        "http://hr-back-end.azurewebsites.net/document-requests",
+        "https://hr-back-end.azurewebsites.net/document-requests",
         newDocumentRequest
       );
 

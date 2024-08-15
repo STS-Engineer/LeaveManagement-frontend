@@ -59,7 +59,7 @@ const MissionRequest = () => {
 
       // Make POST request to backend API to create mission request
       const response = await axios.post(
-        "http://localhost:5000/api/mission-requests",
+        "http://localhost:3000/mission-requests",
         newMissionRequest
       );
 
@@ -133,33 +133,35 @@ const MissionRequest = () => {
           </div>
         </div>
 
+        {/* Start Date Field */}
         <div className="flex flex-wrap -mx-3 mb-2">
           <div className="w-full px-3 mb-2">
-            <label className="block text-sm font-bold mb-2">
+            <label className="block text-sm font-bold mb-2 text-gray-700">
               Start Date <span className="text-red-500">*</span>
             </label>
             <DatePicker
               selected={formData.startDate}
               onChange={(date) => handleDateChange(date, "startDate")}
-              className="w-full p-2 pl-10 text-sm text-gray-700 border border-gray-300 rounded"
+              className="w-full p-2 text-sm text-gray-700 border border-gray-300 rounded-lg"
               placeholderText="Start Date"
-              min={today}
+              minDate={today}
               required
             />
           </div>
         </div>
 
+        {/* End Date Field */}
         <div className="flex flex-wrap -mx-3 mb-2">
           <div className="w-full px-3 mb-2">
-            <label className="block text-sm font-bold mb-2">
+            <label className="block text-sm font-bold mb-2 text-gray-700">
               End Date <span className="text-red-500">*</span>
             </label>
             <DatePicker
               selected={formData.endDate}
               onChange={(date) => handleDateChange(date, "endDate")}
-              className="w-full p-2 pl-10 text-sm text-gray-700 border border-gray-300 rounded"
+              className="w-full p-2 text-sm text-gray-700 border border-gray-300 rounded-lg"
               placeholderText="End Date"
-              min={formData.startDate || today}
+              minDate={formData.startDate || today}
               required
             />
           </div>

@@ -17,7 +17,7 @@ const MyMission = () => {
 
         // Fetch mission requests for the logged-in employee
         const response = await axios.get(
-          `http://localhost:5000/api/mission-requests/employee/${user.id}`,
+          `http://localhost:3000/mission-requests/employee/${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

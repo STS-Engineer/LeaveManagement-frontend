@@ -43,7 +43,7 @@ const LeaveRequest = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/leave-requests",
+        "http://localhost:3000/leave-requests",
         newLeaveRequest,
         {
           headers: {

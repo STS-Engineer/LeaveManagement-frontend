@@ -29,7 +29,7 @@ const AuthRequest = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/authorization-requests",
+        "http://localhost:3000/authorization-requests",
         formData
       );
 

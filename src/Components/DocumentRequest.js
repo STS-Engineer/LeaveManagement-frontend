@@ -36,7 +36,7 @@ const DocumentRequest = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/document-requests",
+        "http://localhost:3000/document-requests",
         newDocumentRequest
       );
 
@@ -138,7 +138,7 @@ const DocumentRequest = () => {
           className="bg-green-500 text-white p-2 rounded"
           disabled={submitting}
         >
-          {submitting ? "Submitting..." : "Submit"}
+          {submitting ? "Submitting..." : "Apply"}
         </button>
 
         {showSuccessMessage && (

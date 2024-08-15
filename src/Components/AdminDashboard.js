@@ -11,7 +11,7 @@ const DashboardAdmin = () => {
     // Fetch leave requests periodically
     const fetchRequests = () => {
       fetch(
-        `http://localhost:5000/api/leave-requests?page=${currentPage}&limit=${requestsPerPage}`
+        `http://localhost:3000/leave-requests?page=${currentPage}&limit=${requestsPerPage}`
       )
         .then((response) => response.json())
         .then((data) => setLeaveRequests(data))
@@ -34,7 +34,7 @@ const DashboardAdmin = () => {
     setLeaveRequests(updatedRequests);
 
     // Make the server request
-    fetch(`http://localhost:5000/api/leave-requests/${id}`, {
+    fetch(`http://localhost:3000/leave-requests/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +66,7 @@ const DashboardAdmin = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/api/leave-requests/${id}`, {
+    fetch(`http://localhost:3000/leave-requests/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -125,7 +125,7 @@ const DashboardAdmin = () => {
                         </span>{" "}
                         {request.justificationfile && (
                           <a
-                            href={`http://localhost:5000/uploads/${request.justificationfile}`}
+                            href={`http://localhost:3000/uploads/${request.justificationfile}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-500 underline"

@@ -13,7 +13,7 @@ const DocumentAdmin = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/document-requests"
+          "http://localhost:3000/document-requests"
         );
         setRequests(response.data);
       } catch (error) {
@@ -40,7 +40,7 @@ const DocumentAdmin = () => {
       setUploading(true);
       setUploadingRequestId(requestId);
       await axios.post(
-        `http://localhost:5000/api/document-requests/upload/${requestId}`,
+        `http://localhost:3000/document-requests/upload/${requestId}`,
         formData,
         {
           headers: {
@@ -60,47 +60,47 @@ const DocumentAdmin = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="p-4 sm:p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Manage Document Requests</h2>
       {successMessage && (
-        <div className="bg-green-100 text-green-800 p-4 mb-4 rounded">
+        <div className="bg-green-100 text-green-800 p-4 mb-4 rounded-lg border border-green-200">
           {successMessage}
         </div>
       )}
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
+        <table className="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow-sm">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 First Name
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Last Name
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Document Type
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Upload
               </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {requests.map((request) => (
-              <tr key={request.requestid}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <tr key={request.requestid} className="hover:bg-gray-100">
+                <td className="px-2 py-3 text-sm text-gray-500">
                   {request.firstname}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-2 py-3 text-sm text-gray-500">
                   {request.lastname}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-2 py-3 text-sm text-gray-500">
                   {request.documenttype}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-2 py-3 text-sm text-gray-500">
                   <span
                     className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                       request.status === "Pending"
@@ -113,15 +113,15 @@ const DocumentAdmin = () => {
                     {request.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-2 py-3 text-sm text-gray-500">
                   <input
                     type="file"
                     onChange={handleFileChange}
-                    className="mb-2"
+                    className="text-sm text-gray-600 file:py-1 file:px-2 file:border file:border-gray-300 file:rounded-lg file:bg-gray-50 file:text-gray-700 file:cursor-pointer"
                   />
                   <button
                     onClick={() => handleUpload(request.requestid)}
-                    className={`bg-blue-500 text-white px-4 py-2 rounded ${
+                    className={`bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center mt-2 ${
                       uploading && uploadingRequestId === request.requestid
                         ? "opacity-50 cursor-not-allowed"
                         : ""

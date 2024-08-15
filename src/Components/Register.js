@@ -16,18 +16,15 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
-        {
-          firstname,
-          lastname,
-          function: userFunction,
-          department,
-          email,
-          password,
-          role,
-        }
-      );
+      const response = await axios.post("http://localhost:3000/auth/register", {
+        firstname,
+        lastname,
+        function: userFunction,
+        department,
+        email,
+        password,
+        role,
+      });
       console.log("Response data:", response.data); // Log response data
       if (response.status === 201) {
         navigate("/login");

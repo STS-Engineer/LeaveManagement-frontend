@@ -6,12 +6,14 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [userName, setUserName] = useState(""); // State to store user's first and last name
   const navigate = useNavigate();
   const [welcomeText, setWelcomeText] = useState("");
   const welcomeMessage = "Welcome to AVOCarbon LEAVE Management";
 
   useEffect(() => {
-    // Simulate typewriter effect
     let currentIndex = 0;
     const interval = setInterval(() => {
       if (currentIndex <= welcomeMessage.length) {
@@ -26,30 +28,44 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // Clear previous error message
+    setShowError(false); // Hide the previous error message if visible
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          email: username,
-          password: password,
-        }
-      );
-      console.log("Response data:", response.data); // Log response data
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        email: username,
+        password: password,
+      });
+
       if (response.data.token && response.data.user) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
         const userRole = response.data.user.role;
-        setRole(userRole); // Assuming setRole is defined somewhere to update state
+        setRole(userRole);
+        setUserName(
+          `${response.data.user.firstName} ${response.data.user.lastName}`
+        ); // Set user's first and last name
         navigate(`/${getRedirectPath(userRole)}`);
       } else {
-        console.log("Invalid credentials. Please try again.");
+        setErrorMessage("Invalid Credentials. Please try again.");
+        setShowError(true); // Show the error message
       }
     } catch (error) {
       console.error("Error logging in:", error);
-      console.log("Invalid credentials. Please try again.");
+      setErrorMessage("Password Incorrect. Please try again.");
+      setShowError(true); // Show the error message
     }
   };
+
+  useEffect(() => {
+    if (showError) {
+      const timer = setTimeout(() => {
+        setShowError(false);
+      }, 1500);
+
+      return () => clearTimeout(timer); // Clear the timeout if the component unmounts
+    }
+  }, [showError]);
 
   const getRedirectPath = (role) => {
     switch (role) {
@@ -59,6 +75,8 @@ const Login = () => {
         return "home-admin";
       case "HRMANAGER":
         return "home-rh";
+      case "PLANT_MANAGER":
+        return "home-admin";
       default:
         return "";
     }
@@ -80,6 +98,16 @@ const Login = () => {
           {welcomeText}
         </div>
         <h2 className="text-center text-2xl font-bold mb-6">Sign In</h2>
+        {showError && (
+          <div
+            className={`transition-opacity duration-200 ease-in-out ${
+              showError ? "opacity-100" : "opacity-0"
+            } bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4`}
+            role="alert"
+          >
+            <p>{errorMessage}</p>
+          </div>
+        )}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -121,10 +149,10 @@ const Login = () => {
             >
               SIGN IN
             </button>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mt-4">
               <div className="text-sm">
                 <a
-                  href="#"
+                  href="/reset-password"
                   className="font-medium text-gray-500 hover:text-orange-500"
                 >
                   Forgot your password?{" "}
@@ -134,6 +162,12 @@ const Login = () => {
             </div>
           </div>
         </form>
+
+        {userName && ( // Conditionally render the welcome message
+          <div className="mt-8 text-center text-lg font-bold text-green-600">
+            Welcome, {userName}!
+          </div>
+        )}
 
         <div className="mt-8">
           <p className="text-center text-sm font-medium text-gray-700">
@@ -148,7 +182,6 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Absolute positioned logo */}
       <div
         style={{
           position: "absolute",

@@ -1,44 +1,111 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Menu, Transition } from "@headlessui/react";
+import {
+  BellIcon,
+  UserIcon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 
 const TopBarAdmin = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState({
+    firstname: "Admin",
+    lastname: "",
+    profilePhoto: "/avatar.jpg",
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/auth/users/"); // Adjust the endpoint as needed
+        const data = await response.json();
+        setUser({
+          firstname: data.firstname,
+          lastname: data.lastname,
+          profilePhoto: data.profilePhoto,
+        });
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleLogout = () => {
-    // Perform any logout tokens
     navigate("/login");
   };
 
-  const getTitle = () => {
-    if (location.pathname === "/admin-dashboard") return "Leave Management";
-    if (location.pathname === "/mission-management")
-      return "Mission Management";
-    if (location.pathname === "/home-admin") return "Home";
-    return "Dashboard";
-  };
+  const getTitle = () => {};
 
   return (
     <div className="bg-orange-400 p-4 flex justify-between items-center text-white">
-      <div>{getTitle()}</div>
+      <div className="text-lg font-semibold">{getTitle()}</div>
       <div className="flex items-center space-x-4">
-        {/* Add admin-specific functionalities here */}
-        <div className="flex items-center space-x-2 cursor-pointer">
-          <span>Manager</span> {/* Change to Admin */}
-          <img
-            src="/avatar.jpg"
-            alt="avatar"
-            className="w-8 h-8 rounded-full"
-          />
-        </div>
         <button
-          onClick={handleLogout}
-          className="px-3 py-1 bg-white text-orange-600 rounded-md hover:bg-gray-200"
+          type="button"
+          className="relative rounded-full bg-orange-400 p-1 text-white hover:text-gray-200 focus:outline-none"
         >
-          Logout
+          <span className="sr-only">View notifications</span>
+          <BellIcon className="h-6 w-6" aria-hidden="true" />
         </button>
+
+        <Menu as="div" className="relative">
+          <div>
+            <Menu.Button className="flex items-center space-x-2">
+              <span>{`${user.firstname} ${user.lastname}`}</span>
+              <img
+                src={user.profilePhoto || "/default-avatar.jpg"}
+                alt="avatar"
+                className="w-8 h-8 rounded-full"
+              />
+            </Menu.Button>
+          </div>
+
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Item>
+                {({ active }) => (
+                  <a
+                    href="/profile"
+                    className={`${
+                      active ? "bg-gray-100" : ""
+                    } flex items-center px-4 py-2 text-sm text-gray-700`}
+                  >
+                    <UserIcon className="mr-2 h-5 w-5 text-gray-500" />
+                    Profile
+                  </a>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={handleLogout}
+                    className={`${
+                      active ? "bg-gray-100" : ""
+                    } flex items-center w-full px-4 py-2 text-sm text-gray-700`}
+                  >
+                    <ArrowRightOnRectangleIcon className="mr-2 h-5 w-5 text-gray-500" />
+                    Logout
+                  </button>
+                )}
+              </Menu.Item>
+            </Menu.Items>
+          </Transition>
+        </Menu>
       </div>
     </div>
   );
 };
+
 export default TopBarAdmin;

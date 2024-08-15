@@ -14,7 +14,7 @@ const MyDoc = ({ user }) => {
         const user = JSON.parse(localStorage.getItem("user"));
         console.log("User:", user); // Debug line
         const response = await fetch(
-          `http://localhost:5000/api/document-requests/${user.id}`,
+          `http://localhost:3000/document-requests/${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

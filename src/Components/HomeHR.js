@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileExcel, faFilePdf } from "@fortawesome/free-solid-svg-icons";
-import TopBarhr from "./TopBarHR";
+import TopBar from "./TopBar";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -20,13 +20,13 @@ const HomeHR = () => {
     const fetchRequests = async () => {
       try {
         const leaveRequestsResponse = await axios.get(
-          "http://localhost:5000/api/leave-requests"
+          "http://localhost:3000/leave-requests"
         );
         const missionRequestsResponse = await axios.get(
-          "http://localhost:5000/api/mission-requests"
+          "http://localhost:3000/mission-requests"
         );
         const authorizationRequestsResponse = await axios.get(
-          "http://localhost:5000/api/authorization-requests"
+          "http://localhost:3000/authorization-requests"
         );
 
         console.log("Leave Requests:", leaveRequestsResponse.data);
@@ -40,7 +40,7 @@ const HomeHR = () => {
           id: req.requestid,
           employeeId: req.employeeid,
           type: "Leave",
-          leaveType: req.leavetype, // Assuming 'typeofleave' is the key for type of leave
+          leaveType: req.leavetype,
           startDate: req.startdate,
           endDate: req.enddate,
           status: req.status,
@@ -54,6 +54,7 @@ const HomeHR = () => {
           id: req.requestid,
           employeeId: req.employeeid,
           type: "Mission",
+          leaveType: "_", // Placeholder for leaveType
           startDate: req.startdate,
           endDate: req.enddate,
           status: req.status,
@@ -68,7 +69,9 @@ const HomeHR = () => {
             id: req.requestid,
             employeeId: req.employeeid,
             type: "Authorization",
+            leaveType: "_", // Placeholder for leaveType
             startDate: req.authorization_date,
+            endDate: req.authorization_date,
             status: req.status,
             firstName: req.firstname,
             lastName: req.lastname,
@@ -150,10 +153,10 @@ const HomeHR = () => {
       ],
       body: filteredRequests.map((req) => [
         req.employeeId,
-        req.firstName || "", // Ensure fields exist
+        req.firstName || "",
         req.lastName || "",
         req.type || "",
-        req.type === "Leave" ? req.typeOfLeave || "" : "-", // Type of leave or "-"
+        req.leaveType || "-",
         formatDate(req.startDate) || "",
         formatDate(req.endDate) || "",
         calculateDuration(req.startDate, req.endDate) + " days" || "",
@@ -169,7 +172,7 @@ const HomeHR = () => {
         "First Name": req.firstName || "",
         "Last Name": req.lastName || "",
         "Type of Request": req.type || "",
-        "Type of Leave": req.type === "Leave" ? req.leaveType || "" : "-",
+        "Type of Leave": req.leaveType || "-",
         "Start Date": formatDate(req.startDate) || "",
         "End Date": formatDate(req.endDate) || "",
         Duration: calculateDuration(req.startDate, req.endDate) + " days" || "",
@@ -181,130 +184,140 @@ const HomeHR = () => {
   };
 
   return (
-    <div className="flex">
-      <div className="flex-1">
-        <TopBarhr />
-        <div className="p-4">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-l font-bold">Employee Requests</h2>
-            <div className="flex space-x-2">
-              <button
-                onClick={handleDownloadExcel}
-                className="bg-green-400 text-white px-2 py-1 rounded hover:bg-green-600 flex items-center mr-2"
-              >
-                <FontAwesomeIcon icon={faFileExcel} className="mr-2" />
-                Export Excel
-              </button>
-              <button
-                onClick={handleDownloadPDF}
-                className="bg-red-400 text-white px-2 py-1 rounded hover:bg-red-600 flex items-center"
-              >
-                <FontAwesomeIcon icon={faFilePdf} className="mr-2" />
-                Export PDF
-              </button>
-            </div>
+    <div className="flex flex-col min-h-screen">
+      <TopBar />
+      <div className="p-4 flex-1">
+        <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-lg font-bold mb-2 sm:mb-0">Employee Requests</h2>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+            <button
+              onClick={handleDownloadExcel}
+              className="bg-green-400 text-white px-3 py-2 rounded hover:bg-green-600 flex items-center mb-2 sm:mb-0"
+            >
+              <FontAwesomeIcon icon={faFileExcel} className="mr-2" />
+              Export Excel
+            </button>
+            <button
+              onClick={handleDownloadPDF}
+              className="bg-red-400 text-white px-3 py-2 rounded hover:bg-red-600 flex items-center"
+            >
+              <FontAwesomeIcon icon={faFilePdf} className="mr-2" />
+              Export PDF
+            </button>
           </div>
+        </div>
 
-          <div className="mb-4">
-            <label>Filter by Type: </label>
+        <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:space-x-4">
+          <label className="flex-1">
+            Filter by Type:
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="border p-2"
+              className="block mt-1 border p-2 w-full sm:w-auto"
             >
               <option value="All">All</option>
               <option value="Leave">Leave</option>
               <option value="Mission">Mission</option>
               <option value="Authorization">Authorization</option>
             </select>
+          </label>
 
-            <label className="ml-4">Filter by Date: </label>
+          <label className="flex-1 mt-4 sm:mt-0">
+            Filter by Date:
             <input
               type="date"
               value={filterDate}
               onChange={(e) => setFilterDate(e.target.value)}
-              className="border p-2"
+              className="block mt-1 border p-2 w-full sm:w-auto"
             />
-          </div>
+          </label>
+        </div>
 
-          {currentRequests.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="min-w-full bg-white border border-gray-200">
-                <thead>
-                  <tr>
-                    {[
-                      "Employee ID",
-                      "First Name",
-                      "Last Name",
-                      "Type of Request",
-                      "Type of Leave",
-                      "Start Date",
-                      "End Date",
-                      "Duration",
-                    ].map((header) => (
-                      <th
-                        key={header}
-                        className="px-4 py-2 text-left bg-gray-100 border-b border-gray-200"
-                      >
-                        {header}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentRequests.map((request) => (
-                    <tr
-                      key={request.id}
-                      className="border-b border-gray-200 hover:bg-gray-50"
+        {currentRequests.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr>
+                  {[
+                    "Employee ID",
+                    "First Name",
+                    "Last Name",
+                    "Type of Request",
+                    "Type of Leave",
+                    "Start Date",
+                    "End Date",
+                    "Duration",
+                  ].map((header) => (
+                    <th
+                      key={header}
+                      className="px-4 py-2 border-b border-gray-300 text-left"
                     >
-                      <td className="px-4 py-2">{request.employeeId || ""}</td>
-                      <td className="px-4 py-2">{request.firstName || ""}</td>
-                      <td className="px-4 py-2">{request.lastName || ""}</td>
-                      <td className="px-4 py-2">{request.type || ""}</td>
-                      <td className="px-4 py-2">
-                        {request.type === "Leave"
-                          ? request.typeOfLeave || ""
-                          : "-"}
-                      </td>
-                      <td className="px-4 py-2">
-                        {request.startDate ? formatDate(request.startDate) : ""}
-                      </td>
-                      <td className="px-4 py-2">
-                        {request.endDate ? formatDate(request.endDate) : ""}
-                      </td>
-                      <td className="px-4 py-2">
-                        {request.startDate && request.endDate
-                          ? calculateDuration(
-                              request.startDate,
-                              request.endDate
-                            ) + " days"
-                          : ""}
-                      </td>
-                    </tr>
+                      {header}
+                    </th>
                   ))}
-                </tbody>
-              </table>
-              <div className="mt-4 flex justify-center space-x-2">
-                {Array.from({
-                  length: Math.ceil(filteredRequests.length / requestsPerPage),
-                }).map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => paginate(index + 1)}
-                    className={`px-3 py-1 border ${
-                      currentPage === index + 1
-                        ? "bg-blue-500 text-white"
-                        : "bg-white text-blue-500"
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
+                </tr>
+              </thead>
+              <tbody>
+                {currentRequests.map((request) => (
+                  <tr key={request.id}>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {request.employeeId}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {request.firstName || "-"}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {request.lastName || "-"}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {request.type || "-"}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {request.leaveType || "-"}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {formatDate(request.startDate) || "-"}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {formatDate(request.endDate) || "-"}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {calculateDuration(request.startDate, request.endDate) +
+                        " days" || "-"}
+                    </td>
+                  </tr>
                 ))}
-              </div>
-            </div>
-          ) : (
-            <p>No approved requests found.</p>
-          )}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p>No requests found.</p>
+        )}
+
+        <div className="mt-4 flex justify-center">
+          <nav>
+            <ul className="flex space-x-2">
+              {Array.from(
+                {
+                  length: Math.ceil(filteredRequests.length / requestsPerPage),
+                },
+                (_, index) => (
+                  <li key={index + 1}>
+                    <button
+                      onClick={() => paginate(index + 1)}
+                      className={`px-4 py-2 border rounded ${
+                        currentPage === index + 1
+                          ? "bg-blue-500 text-white"
+                          : "bg-white text-blue-500"
+                      }`}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                )
+              )}
+            </ul>
+          </nav>
         </div>
       </div>
     </div>

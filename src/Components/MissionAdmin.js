@@ -9,7 +9,7 @@ const MissionAdmin = () => {
   useEffect(() => {
     const fetchRequests = () => {
       fetch(
-        `http://localhost:5000/api/mission-requests?page=${currentPage}&limit=${requestsPerPage}`
+        `http://localhost:3000/mission-requests?page=${currentPage}&limit=${requestsPerPage}`
       )
         .then((response) => response.json())
         .then((data) => setMissionRequests(data))
@@ -32,7 +32,7 @@ const MissionAdmin = () => {
     setMissionRequests(updatedRequests);
 
     // Make the server request
-    fetch(`http://localhost:5000/api/mission-requests/${id}`, {
+    fetch(`http://localhost:3000/mission-requests/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const MissionAdmin = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/api/mission-requests/${id}`, {
+    fetch(`http://localhost:3000/mission-requests/${id}`, {
       method: "DELETE",
     })
       .then(() => {

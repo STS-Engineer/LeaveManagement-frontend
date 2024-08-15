@@ -27,6 +27,7 @@ import HomeHR from "./Components/HomeHR";
 import DocumentRequest from "./Components/DocumentRequest";
 import MyDoc from "./Components/Mydoc";
 import DocumentAdmin from "./Components/DocAdmin";
+import Profile from "./Components/profile";
 
 const App = () => {
   const [leaveRequests, setLeaveRequests] = useState([]);
@@ -84,7 +85,7 @@ const App = () => {
             <div className="flex h-screen">
               <SideBarAdmin />
               <div className="flex-1 flex flex-col">
-                <TopBarAdmin />
+                <TopBar />
                 <div className="flex-1 overflow-auto p-4">
                   <AdminDashboard
                     leaveRequests={leaveRequests}
@@ -102,7 +103,7 @@ const App = () => {
             <div className="flex h-screen">
               <SideBarAdmin />
               <div className="flex-1 flex flex-col">
-                <TopBarAdmin />
+                <TopBar />
                 <div className="flex-1 overflow-auto p-4">
                   <MissionAdmin
                     missionRequests={missionRequests}
@@ -120,7 +121,7 @@ const App = () => {
             <div className="flex h-screen">
               <SideBarAdmin />
               <div className="flex-1 flex flex-col">
-                <TopBarAdmin />
+                <TopBar />
                 <div className="flex-1 overflow-auto p-4">
                   <AuthAdmin
                     authorizationRequests={authorizationRequests}
@@ -139,7 +140,7 @@ const App = () => {
             <div className="flex h-screen">
               <SideBarAdmin />
               <div className="flex-1 flex flex-col">
-                <TopBarAdmin />
+                <TopBar />
                 <div className="flex-1 overflow-auto p-4">
                   <DocumentAdmin
                     documentRequests={documentRequests}
@@ -243,7 +244,20 @@ const App = () => {
           path="/my-auth"
           element={<MyAuth authorizationRequests={authorizationRequests} />}
         />
-
+        <Route
+          path="/profile"
+          element={
+            <div className="flex h-screen">
+              <div className="flex-1 flex flex-col">
+                <TopBar />
+                <div className="flex-1 overflow-auto p-4">
+                  <Profile />
+                </div>
+                <Footer />
+              </div>
+            </div>
+          }
+        />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>

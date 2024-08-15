@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import SidebarAdmin from "./SideBarAdmin";
-import TopBarAdmin from "./TopBarAdmin";
+import TopBar from "./TopBar";
 
 const HomeAdmin = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const HomeAdmin = () => {
     <div className="flex h-screen">
       <SidebarAdmin />
       <div className="flex-1 flex flex-col">
-        <TopBarAdmin />
+        <TopBar />
         <div className="flex-1 p-4 overflow-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div

@@ -132,7 +132,7 @@ const Profile = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:3000/auth/user/${user.id}`,
+          `https://hr-back-end.azurewebsites.net/auth/user/${user.id}`,
           {
             method: "PUT",
             headers: {

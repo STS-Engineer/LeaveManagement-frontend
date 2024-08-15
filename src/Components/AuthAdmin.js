@@ -11,11 +11,7 @@ const AuthAdmin = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-<<<<<<< HEAD
-          `http://localhost:3000/authorization-requests?page=${currentPage}&limit=${requestsPerPage}`
-=======
           `https://hr-back-end.azurewebsites.net/authorization-requests?page=${currentPage}&limit=${requestsPerPage}`
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
         );
         setAuthRequests(response.data); // Set auth requests data
       } catch (error) {
@@ -38,13 +34,12 @@ const AuthAdmin = () => {
 
     // Make the server request
     axios
-<<<<<<< HEAD
-      .put(`http://localhost:3000/authorization-requests/${id}`, {
-=======
-      .put(`https://hr-back-end.azurewebsites.net/authorization-requests/${id}`, {
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
-        status: newStatus,
-      })
+      .put(
+        `https://hr-back-end.azurewebsites.net/authorization-requests/${id}`,
+        {
+          status: newStatus,
+        }
+      )
       .then((response) => {
         const confirmedRequests = authRequests.map((request) =>
           request.requestid === id ? response.data : request
@@ -60,11 +55,9 @@ const AuthAdmin = () => {
 
   const handleDelete = (id) => {
     axios
-<<<<<<< HEAD
-      .delete(`http://localhost:3000/authorization-requests/${id}`)
-=======
-      .delete(`https://hr-back-end.azurewebsites.net/authorization-requests/${id}`)
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
+      .delete(
+        `https://hr-back-end.azurewebsites.net/authorization-requests/${id}`
+      )
       .then(() => {
         setAuthRequests(
           authRequests.filter((request) => request.requestid !== id)

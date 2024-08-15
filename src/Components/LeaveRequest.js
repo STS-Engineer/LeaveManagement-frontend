@@ -43,11 +43,7 @@ const LeaveRequest = () => {
 
     try {
       const response = await axios.post(
-<<<<<<< HEAD
-        "http://localhost:3000/leave-requests",
-=======
         "https://hr-back-end.azurewebsites.net/leave-requests",
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
         newLeaveRequest,
         {
           headers: {

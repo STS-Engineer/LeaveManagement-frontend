@@ -20,15 +20,6 @@ const HomeHR = () => {
     const fetchRequests = async () => {
       try {
         const leaveRequestsResponse = await axios.get(
-<<<<<<< HEAD
-          "http://localhost:3000/leave-requests"
-        );
-        const missionRequestsResponse = await axios.get(
-          "http://localhost:3000/mission-requests"
-        );
-        const authorizationRequestsResponse = await axios.get(
-          "http://localhost:3000/authorization-requests"
-=======
           "https://hr-back-end.azurewebsites.net/leave-requests"
         );
         const missionRequestsResponse = await axios.get(
@@ -36,7 +27,6 @@ const HomeHR = () => {
         );
         const authorizationRequestsResponse = await axios.get(
           "https://hr-back-end.azurewebsites.net/authorization-requests"
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
         );
 
         console.log("Leave Requests:", leaveRequestsResponse.data);

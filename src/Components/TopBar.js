@@ -26,7 +26,7 @@ const TopBar = () => {
         const token = localStorage.getItem("token");
         const userId = JSON.parse(localStorage.getItem("user")).id;
         const response = await fetch(
-          `http://localhost:3000/auth/user/${userId}/photo`,
+          `https://hr-back-end.azurewebsites.net/auth/user/${userId}/photo`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

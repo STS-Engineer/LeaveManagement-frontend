@@ -36,7 +36,11 @@ const DocumentRequest = () => {
 
     try {
       await axios.post(
+<<<<<<< HEAD
         "http://localhost:3000/document-requests",
+=======
+        "https://hr-back-end.azurewebsites.net/document-requests",
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
         newDocumentRequest
       );
 

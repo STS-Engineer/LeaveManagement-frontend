@@ -16,6 +16,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
+<<<<<<< HEAD
       const response = await axios.post("http://localhost:3000/auth/register", {
         firstname,
         lastname,
@@ -25,6 +26,20 @@ const Register = () => {
         password,
         role,
       });
+=======
+      const response = await axios.post(
+        "https://hr-back-end.azurewebsites.net/auth/register",
+        {
+          firstname,
+          lastname,
+          function: userFunction,
+          department,
+          email,
+          password,
+          role,
+        }
+      );
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
       console.log("Response data:", response.data); // Log response data
       if (response.status === 201) {
         navigate("/login");

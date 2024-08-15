@@ -17,7 +17,11 @@ const MyMission = () => {
 
         // Fetch mission requests for the logged-in employee
         const response = await axios.get(
+<<<<<<< HEAD
           `http://localhost:3000/mission-requests/employee/${user.id}`,
+=======
+          `https://hr-back-end.azurewebsites.net/mission-requests/employee/${user.id}`,
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
           {
             headers: {
               Authorization: `Bearer ${token}`,

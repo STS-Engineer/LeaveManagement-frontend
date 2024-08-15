@@ -9,7 +9,11 @@ const MissionAdmin = () => {
   useEffect(() => {
     const fetchRequests = () => {
       fetch(
+<<<<<<< HEAD
         `http://localhost:3000/mission-requests?page=${currentPage}&limit=${requestsPerPage}`
+=======
+        `https://hr-back-end.azurewebsites.net/mission-requests?page=${currentPage}&limit=${requestsPerPage}`
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
       )
         .then((response) => response.json())
         .then((data) => setMissionRequests(data))
@@ -32,7 +36,11 @@ const MissionAdmin = () => {
     setMissionRequests(updatedRequests);
 
     // Make the server request
+<<<<<<< HEAD
     fetch(`http://localhost:3000/mission-requests/${id}`, {
+=======
+    fetch(`https://hr-back-end.azurewebsites.net/mission-requests/${id}`, {
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +72,11 @@ const MissionAdmin = () => {
   };
 
   const handleDelete = (id) => {
+<<<<<<< HEAD
     fetch(`http://localhost:3000/mission-requests/${id}`, {
+=======
+    fetch(`https://hr-back-end.azurewebsites.net/mission-requests/${id}`, {
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
       method: "DELETE",
     })
       .then(() => {

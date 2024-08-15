@@ -11,7 +11,11 @@ const DashboardAdmin = () => {
     // Fetch leave requests periodically
     const fetchRequests = () => {
       fetch(
+<<<<<<< HEAD
         `http://localhost:3000/leave-requests?page=${currentPage}&limit=${requestsPerPage}`
+=======
+        `https://hr-back-end.azurewebsites.net/leave-requests?page=${currentPage}&limit=${requestsPerPage}`
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
       )
         .then((response) => response.json())
         .then((data) => setLeaveRequests(data))
@@ -34,7 +38,11 @@ const DashboardAdmin = () => {
     setLeaveRequests(updatedRequests);
 
     // Make the server request
+<<<<<<< HEAD
     fetch(`http://localhost:3000/leave-requests/${id}`, {
+=======
+    fetch(`https://hr-back-end.azurewebsites.net/leave-requests/${id}`, {
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +74,11 @@ const DashboardAdmin = () => {
   };
 
   const handleDelete = (id) => {
+<<<<<<< HEAD
     fetch(`http://localhost:3000/leave-requests/${id}`, {
+=======
+    fetch(`https://hr-back-end.azurewebsites.net/leave-requests/${id}`, {
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
       method: "DELETE",
     })
       .then(() => {
@@ -125,7 +137,11 @@ const DashboardAdmin = () => {
                         </span>{" "}
                         {request.justificationfile && (
                           <a
+<<<<<<< HEAD
                             href={`http://localhost:3000/uploads/${request.justificationfile}`}
+=======
+                            href={`https://hr-back-end.azurewebsites.net/uploads/${request.justificationfile}`}
+>>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-500 underline"

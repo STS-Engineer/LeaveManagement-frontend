@@ -14,11 +14,7 @@ const MyLeave = ({ user }) => {
         const token = localStorage.getItem("token");
         const user = JSON.parse(localStorage.getItem("user"));
         const response = await fetch(
-<<<<<<< HEAD
-          `http://localhost:3000/leave-requests/employee/${user.id}`,
-=======
           `https://hr-back-end.azurewebsites.net/leave-requests/employee/${user.id}`,
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
           {
             headers: {
               Authorization: `Bearer ${token}`,

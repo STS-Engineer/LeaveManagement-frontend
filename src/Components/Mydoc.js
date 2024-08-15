@@ -14,11 +14,7 @@ const MyDoc = ({ user }) => {
         const user = JSON.parse(localStorage.getItem("user"));
         console.log("User:", user); // Debug line
         const response = await fetch(
-<<<<<<< HEAD
-          `http://localhost:3000/document-requests/${user.id}`,
-=======
           `https://hr-back-end.azurewebsites.net/document-requests/${user.id}`,
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
           {
             headers: {
               Authorization: `Bearer ${token}`,

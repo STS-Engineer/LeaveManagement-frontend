@@ -13,11 +13,7 @@ const DocumentAdmin = () => {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-<<<<<<< HEAD
-          "http://localhost:3000/document-requests"
-=======
           "https://hr-back-end.azurewebsites.net/document-requests"
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
         );
         setRequests(response.data);
       } catch (error) {
@@ -44,11 +40,7 @@ const DocumentAdmin = () => {
       setUploading(true);
       setUploadingRequestId(requestId);
       await axios.post(
-<<<<<<< HEAD
-        `http://localhost:3000/document-requests/upload/${requestId}`,
-=======
         `https://hr-back-end.azurewebsites.net/document-requests/upload/${requestId}`,
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
         formData,
         {
           headers: {

@@ -32,13 +32,6 @@ const Login = () => {
     setShowError(false); // Hide the previous error message if visible
 
     try {
-<<<<<<< HEAD
-      const response = await axios.post("http://localhost:3000/auth/login", {
-        email: username,
-        password: password,
-      });
-
-=======
       const response = await axios.post(
         "https://hr-back-end.azurewebsites.net/auth/login",
         {
@@ -47,7 +40,6 @@ const Login = () => {
         }
       );
       console.log("Response data:", response.data); // Log response data
->>>>>>> 26d20a5bdaf65b78c73a1cefaa9fdd9e17395b58
       if (response.data.token && response.data.user) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));

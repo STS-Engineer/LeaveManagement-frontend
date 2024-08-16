@@ -1,6 +1,6 @@
 {
-  "short_name": "HR Management",
-  "name": "HR Management",
+  "short_name": "HR Service",
+  "name": "HR Service",
   "icons": [
     {
       "src": "%PUBLIC_URL%/iconfinder-mail-management-4341274_120573.ico",

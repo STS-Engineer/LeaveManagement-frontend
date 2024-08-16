@@ -11,7 +11,7 @@ const Login = () => {
   const [userName, setUserName] = useState(""); // State to store user's first and last name
   const navigate = useNavigate();
   const [welcomeText, setWelcomeText] = useState("");
-  const welcomeMessage = "Welcome to AVOCarbon LEAVE Management";
+  const welcomeMessage = "Welcome to AVOCarbon HR Service";
 
   useEffect(() => {
     let currentIndex = 0;

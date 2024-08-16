@@ -113,9 +113,8 @@ const Profile = () => {
         if (response.ok) {
           setMessage("Profile photo updated successfully!");
           // Refresh the profile photo
-          const blob = await response.blob();
-          const photoUrl = URL.createObjectURL(blob);
-          setProfilePhoto(photoUrl);
+          const updatedPhotoUrl = URL.createObjectURL(file);
+          setProfilePhoto(updatedPhotoUrl);
         } else {
           const data = await response.json();
           setMessage(data.error || "Update failed");

@@ -20,9 +20,14 @@ const Login = () => {
         setWelcomeText(welcomeMessage.substring(0, currentIndex));
         currentIndex++;
       } else {
-        clearInterval(interval);
+        // Reset the index after a brief pause to loop the typing effect
+        setTimeout(() => {
+          currentIndex = 0;
+          setWelcomeText(""); // Clear the text before restarting
+        }, 1500); // Pause for 1.5 seconds before restarting
       }
-    }, 100);
+    }, 100); // Typing speed: 100ms per character
+
     return () => clearInterval(interval);
   }, []);
 

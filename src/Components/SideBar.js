@@ -53,14 +53,27 @@ const Sidebar = () => {
         } transition-transform duration-300 ease-in-out md:relative md:translate-x-0 z-30`} // Increased z-index for sidebar
       >
         {/* Close Button for Mobile */}
-        <button
+       <button
           className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 md:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
           aria-label="Close Navigation Menu"
         >
-          Close
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </button>
 
         {/* Logo or Branding */}

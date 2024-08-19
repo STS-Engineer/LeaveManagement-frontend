@@ -8,7 +8,8 @@ const Login = () => {
   const [role, setRole] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showError, setShowError] = useState(false);
-  const [userName, setUserName] = useState(""); // State to store user's first and last name
+  const [userName, setUserName] = useState(""); 
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const [welcomeText, setWelcomeText] = useState("");
   const welcomeMessage = "Welcome to AVOCarbon HR Service";
@@ -44,15 +45,21 @@ const Login = () => {
           password: password,
         }
       );
-      console.log("Response data:", response.data); // Log response data
+      console.log("Response data:", response.data); 
       if (response.data.token && response.data.user) {
-        localStorage.setItem("token", response.data.token);
+        if (rememberMe) {
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("rememberMe", true); 
+          localStorage.setItem("username", username);
+          localStorage.setItem("password", password);
+        } else {
+          sessionStorage.setItem("token", response.data.token);
+          localStorage.removeItem("rememberMe"); 
+          localStorage.removeItem("username");
+          localStorage.removeItem("password");
+        }
         localStorage.setItem("user", JSON.stringify(response.data.user));
         const userRole = response.data.user.role;
-        setRole(userRole);
-        setUserName(
-          `${response.data.user.firstName} ${response.data.user.lastName}`
-        ); // Set user's first and last name
         navigate(`/${getRedirectPath(userRole)}`);
       } else {
         setErrorMessage("Invalid Credentials. Please try again.");
@@ -64,7 +71,19 @@ const Login = () => {
       setShowError(true); // Show the error message
     }
   };
+  useEffect(() => {
+    const savedRememberMe = localStorage.getItem("rememberMe") === "true";
+    if (savedRememberMe) {
+      const savedUsername = localStorage.getItem("username");
+      const savedPassword = localStorage.getItem("password");
 
+      if (savedUsername && savedPassword) {
+        setUsername(savedUsername);
+        setPassword(savedPassword);
+        setRememberMe(true);
+      }
+    }
+  }, []);
   useEffect(() => {
     if (showError) {
       const timer = setTimeout(() => {
@@ -149,7 +168,22 @@ const Login = () => {
               />
             </div>
           </div>
-
+          <div className="flex items-center space-x-2">
+            <input
+              id="remember-me"
+              name="rememberMe"
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="h-4 w-4 text-orange-500 focus:ring-orange-400 border-gray-300 rounded"
+            />
+            <label
+              htmlFor="remember-me"
+              className="text-sm text-gray-600 font-medium select-none cursor-pointer"
+            >
+              Remember me
+            </label>
+          </div>
           <div>
             <button
               type="submit"

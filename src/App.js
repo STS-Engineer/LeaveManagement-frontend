@@ -28,6 +28,7 @@ import DocumentRequest from "./Components/DocumentRequest";
 import MyDoc from "./Components/Mydoc";
 import DocumentAdmin from "./Components/DocAdmin";
 import Profile from "./Components/profile";
+import ChangePassword from "./Components/ChangePassword";
 
 const App = () => {
   const [leaveRequests, setLeaveRequests] = useState([]);
@@ -252,6 +253,20 @@ const App = () => {
                 <TopBar />
                 <div className="flex-1 overflow-auto p-4">
                   <Profile />
+                </div>
+                <Footer />
+              </div>
+            </div>
+          }
+        />
+        <Route
+          path="/change-password"
+          element={
+            <div className="flex h-screen">
+              <div className="flex-1 flex flex-col">
+                <TopBar />
+                <div className="flex-1 overflow-auto p-4">
+                  <ChangePassword />
                 </div>
                 <Footer />
               </div>

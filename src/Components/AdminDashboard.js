@@ -98,19 +98,13 @@ const DashboardAdmin = () => {
             >
               <div className="flex justify-between items-center">
                 <div>
-                  <h3 className="text-lg font-bold">{request.leavetype}</h3>
+                  <h3 className="text-lg font-bold">{request.firstname} {request.lastname} _ {request.leavetype}{" "}</h3>
                   <p className="text-gray-600">
                    {new Date(request.startdate).toLocaleDateString()} to{" "}
                    {new Date(request.enddate).toLocaleDateString()}
                   </p>
                   {selectedRequestId === request.requestid && (
                     <div className="mt-2 space-y-2">
-                      <p className="text-gray-600">
-                        <span className="font-semibold">
-                          First Name & Last Name:
-                        </span>{" "}
-                        {request.firstname} {request.lastname}
-                      </p>
                       <p className="text-gray-600">
                         <span className="font-semibold">Phone:</span>{" "}
                         {request.phone}

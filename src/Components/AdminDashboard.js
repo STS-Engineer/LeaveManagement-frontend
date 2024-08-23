@@ -100,8 +100,8 @@ const DashboardAdmin = () => {
                 <div>
                   <h3 className="text-lg font-bold">{request.leavetype}</h3>
                   <p className="text-gray-600">
-                    {request.startdate.slice(0, 10)} to{" "}
-                    {request.enddate.slice(0, 10)}
+                   {new Date(request.startdate).toLocaleDateString()} to{" "}
+                   {new Date(request.enddate).toLocaleDateString()}
                   </p>
                   {selectedRequestId === request.requestid && (
                     <div className="mt-2 space-y-2">
@@ -136,7 +136,17 @@ const DashboardAdmin = () => {
                       </p>
                       <p className="text-gray-600">
                         <span className="font-semibold">Status:</span>{" "}
-                        {request.status}
+                        <span
+                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            request.status === "Pending"
+                              ? "bg-yellow-400 text-white"
+                              : request.status === "Approved"
+                              ? "bg-green-400 text-white"
+                              : "bg-red-400 text-white"
+                          }`}
+                        >
+                          {request.status}
+                        </span>
                       </p>
                     </div>
                   )}

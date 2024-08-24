@@ -110,7 +110,7 @@ const MyAuth = ({ user }) => {
             </div>
           ) : (
             <p className="text-lg text-gray-500">
-              There are no authorization requests for this employee.
+              No authorization requests found.
             </p>
           )}
         </div>

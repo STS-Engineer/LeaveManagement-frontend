@@ -103,7 +103,7 @@ const MyDoc = ({ user }) => {
         </div>
       ) : (
         <p className="text-lg text-gray-500">
-          There are no documents available for this employee.
+         No document requests found.
         </p>
       )}
     </div>

@@ -110,7 +110,7 @@ const MyLeave = ({ user }) => {
             </div>
           ) : (
             <p className="text-lg text-gray-500">
-              There are no leave requests for this employee.
+             No leave requests found..
             </p>
           )}
         </div>
